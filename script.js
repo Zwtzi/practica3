@@ -5,8 +5,9 @@ const customSettings = document.getElementById("custom-settings");
 let board = [];
 let rows, cols, mineCount;
 let isFirstClick = true;
+let isGameOver = false;
 
-// Configuración de niveles de dificultad
+
 const difficultySettings = {
     easy: { rows: 8, cols: 8, mines: 10 },
     medium: { rows: 12, cols: 12, mines: 20 },
@@ -15,7 +16,7 @@ const difficultySettings = {
     legend: { rows: 25, cols: 25, mines: 80 }
 };
 
-// Mostrar campos personalizados si se selecciona "Personalizado"
+
 document.getElementById("difficulty").addEventListener("change", function() {
     customSettings.style.display = this.value === "custom" ? "block" : "none";
 });
@@ -23,14 +24,14 @@ document.getElementById("difficulty").addEventListener("change", function() {
 configForm.addEventListener("submit", function(event) {
     event.preventDefault();
     const difficulty = document.getElementById("difficulty").value;
+    
 
-    // Si la opción es personalizada, usa los valores de entrada del usuario
     if (difficulty === "custom") {
         rows = parseInt(document.getElementById("custom-rows").value);
         cols = parseInt(document.getElementById("custom-cols").value);
         mineCount = parseInt(document.getElementById("custom-mines").value);
 
-        // Validación de minas: asegurarse de que no haya más minas que espacios disponibles
+        
         if (mineCount >= rows * cols) {
             alert("La cantidad de minas debe ser menor que el número de celdas.");
             return;
@@ -42,6 +43,7 @@ configForm.addEventListener("submit", function(event) {
     }
 
     isFirstClick = true;
+    isGameOver = false; 
     initBoard();
 });
 
@@ -101,6 +103,8 @@ function renderBoard() {
 }
 
 function handleCellClick(event) {
+    if (isGameOver) return; 
+
     const cell = event.target;
     const row = parseInt(cell.dataset.row);
     const col = parseInt(cell.dataset.col);
@@ -117,6 +121,7 @@ function handleCellClick(event) {
         cell.classList.add("mine");
         alert("¡Perdiste! Diste clic en una mina.");
         revealAllMines();
+        isGameOver = true; 
     } else {
         revealCell(row, col);
         checkWinCondition();
@@ -126,7 +131,7 @@ function handleCellClick(event) {
 function handleCellRightClick(event) {
     event.preventDefault();
     const cell = event.target;
-    if (!cell.classList.contains("revealed")) {
+    if (!cell.classList.contains("revealed") && !isGameOver) {
         cell.classList.toggle("flagged");
     }
 }
@@ -172,5 +177,7 @@ function checkWinCondition() {
 
     if (unrevealedCells === 0) {
         alert("¡Felicidades! Has ganado el juego.");
+        isGameOver = true; 
     }
 }
+
