@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,19 @@
       <option value="hard">Difícil (15x15, 40 minas)</option>
       <option value="veryHard">Muy Difícil (20x20, 60 minas)</option>
       <option value="legend">Leyenda (25x25, 80 minas)</option>
+      <option value="custom">Personalizado</option>
     </select>
+
+    <!-- Campos personalizados solo para la opción 'Personalizado' -->
+    <div id="custom-settings" style="display: none;">
+      <label for="custom-rows">Filas:</label>
+      <input type="number" id="custom-rows" min="5" max="50" value="10">
+      <label for="custom-cols">Columnas:</label>
+      <input type="number" id="custom-cols" min="5" max="50" value="10">
+      <label for="custom-mines">Minas:</label>
+      <input type="number" id="custom-mines" min="1" value="10">
+    </div>
+
     <button type="submit">Iniciar Juego</button>
   </form>
   <div id="game-board"></div>
