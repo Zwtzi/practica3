@@ -128,13 +128,16 @@ function handleCellClick(event) {
     }
 }
 
+
 function handleCellRightClick(event) {
     event.preventDefault();
     const cell = event.target;
-    if (!cell.classList.contains("revealed") && !isGameOver) {
+    
+    if (!isGameOver && !cell.classList.contains("revealed")) {
         cell.classList.toggle("flagged");
     }
 }
+
 
 function revealCell(row, col) {
     if (row < 0 || row >= rows || col < 0 || col >= cols || board[row][col].revealed) return;
