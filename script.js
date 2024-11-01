@@ -13,7 +13,7 @@ const difficultySettings = {
     medium: { rows: 12, cols: 12, mines: 20 },
     hard: { rows: 15, cols: 15, mines: 40 },
     veryHard: { rows: 20, cols: 20, mines: 60 },
-    hardcore: { rows: 23, cols: 23, mines 70},
+    hardcore: { rows: 23, cols: 23, mines: 70},
     legend: { rows: 25, cols: 25, mines: 80 }
 };
 
